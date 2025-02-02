@@ -1,0 +1,9 @@
+{
+  "name": "libs/feat-authentication",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/feat-authentication/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project libs/feat-authentication --web",
+  "targets": {}
+}
