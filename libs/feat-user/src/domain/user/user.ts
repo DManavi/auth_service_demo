@@ -1,4 +1,5 @@
 import { cloneDeep } from 'lodash';
+import { plainToInstance } from 'class-transformer';
 
 enum Status {
   /**
@@ -28,8 +29,8 @@ class User {
    */
   status: Status;
 
-  static unmarshal(data: User): User {
-    return Object.assign(new User(), cloneDeep(data));
+  static createInstance(data: User): User {
+    return plainToInstance(User, cloneDeep(data));
   }
 }
 

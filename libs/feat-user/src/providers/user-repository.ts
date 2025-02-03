@@ -82,7 +82,7 @@ export class UserRepository {
     );
 
     // keys are in the same order as the mappedKeys
-    return User.Model.unmarshal(
+    return User.Model.createInstance(
       Object.fromEntries(
         this.mappedKeys.map((key, index) => [key, userFields[index]])
       ) as any

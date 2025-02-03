@@ -1,5 +1,5 @@
 {
-  "name": "user-authentication",
+  "name": "services/user-authentication",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "services/user-authentication/src",
   "projectType": "application",

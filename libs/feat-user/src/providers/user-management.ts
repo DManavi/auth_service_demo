@@ -57,7 +57,7 @@ export class UserManagement {
     );
 
     // create a user domain object
-    const user = User.Model.unmarshal({
+    const user = User.Model.createInstance({
       id: randomUUID(),
 
       username: newUser.username,
