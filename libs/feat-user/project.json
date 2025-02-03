@@ -1,0 +1,9 @@
+{
+  "name": "libs/feat-user",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/feat-user/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project libs/feat-user --web",
+  "targets": {}
+}
