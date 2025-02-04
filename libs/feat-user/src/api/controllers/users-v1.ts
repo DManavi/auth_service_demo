@@ -1,14 +1,16 @@
 import { Body, Controller, Post } from '@nestjs/common';
 
-import { UserManagement } from '../../providers/user-management';
+import * as UserManagement from '../../providers/user-management';
 import { ApiVersion } from '../shared/api-version';
 import * as DTO from '../dto/users-v1';
+import * as DatabaseConnectionCircuitBreaker from '../../guards/database-connection-circuit-breaker';
 
-@Controller({ path: '/users', version: ApiVersion.V1 })
+@Controller({ path: 'users', version: ApiVersion.V1 })
+@DatabaseConnectionCircuitBreaker.RequiresConnection(['users'])
 export class UserManagementController {
-  constructor(protected readonly userManagement: UserManagement) {}
+  constructor(protected readonly userManagement: UserManagement.Provider) {}
 
-  @Post('/')
+  @Post()
   async create(
     @Body() payload: DTO.CreateRequestPayload
   ): Promise<DTO.CreateSuccessfulResponse> {

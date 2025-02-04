@@ -1,16 +1,14 @@
 import { createHash } from 'node:crypto';
 
 import { Injectable, Inject } from '@nestjs/common';
-import { registerAs } from '@nestjs/config';
 import * as bcrypt from 'bcrypt';
 import { createClient } from 'redis';
-import { get as env } from 'env-var';
 
 import * as checks from '#libs/util-misc/type-check';
 
 import * as User from '../domain/user';
 
-export const configKey = 'user.credentials-repository.config';
+const configKey = 'user.credentials-repository.config';
 
 type Config = {
   /**
@@ -19,24 +17,12 @@ type Config = {
   redisClient: ReturnType<typeof createClient>;
 };
 
-const getConfig = registerAs(
-  configKey,
-  (): Config =>
-    ({
-      redisClient: createClient({
-        url: env('APP__USER__CREDENTIAL_REPOSITORY__REDIS__CLIENT__URL')
-          .required()
-          .asUrlString(),
-      }),
-    } satisfies Config)
-);
-
 @Injectable()
-export class CredentialsRepository {
+class CredentialsRepository {
   protected readonly passwordField: string = 'password';
 
   constructor(
-    @Inject(getConfig.KEY)
+    @Inject(configKey)
     protected readonly config: Config
   ) {}
 
@@ -115,3 +101,5 @@ export class CredentialsRepository {
     return await bcrypt.compare(passwordHash, storedPassword);
   }
 }
+
+export { CredentialsRepository as Provider, configKey, Config };

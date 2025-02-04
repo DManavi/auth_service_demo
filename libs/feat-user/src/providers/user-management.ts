@@ -17,21 +17,21 @@ import * as OnUserCreationFailedEvent from '../events/on-user-creation-failed';
 import * as OnUserCreatedEvent from '../events/on-user-created';
 import * as OnUserStatusEvent from '../events/on-user-status-changed';
 
-import { UserRepository } from './user-repository';
-import { PasswordPolicy } from './password-policy';
-import { CredentialsRepository } from './credentials-repository';
+import * as UserRepository from './user-repository';
+import * as PasswordPolicy from './password-policy';
+import * as CredentialsRepository from './credentials-repository';
 
 @Injectable()
-export class UserManagement {
+class UserManagement {
   constructor(
     /* external dependencies */
     protected readonly eventEmitter: EventEmitter2,
     protected readonly clock: Clock,
 
     /* internal dependencies */
-    protected readonly userRepository: UserRepository,
-    protected readonly credentialsRepository: CredentialsRepository,
-    protected readonly passwordPolicy: PasswordPolicy
+    protected readonly userRepository: UserRepository.Provider,
+    protected readonly credentialsRepository: CredentialsRepository.Provider,
+    protected readonly passwordPolicy: PasswordPolicy.Provider
   ) {}
 
   protected async getUserByIdOrFail({
@@ -159,3 +159,5 @@ export class UserManagement {
     return user;
   }
 }
+
+export { UserManagement as Provider };

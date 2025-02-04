@@ -1,14 +1,18 @@
 import { Body, Controller, Post } from '@nestjs/common';
 
-import { UserAuthentication } from '../../providers/user-authentication';
+import * as UserAuthentication from '../../providers/user-authentication';
 import { ApiVersion } from '../shared/api-version';
 import * as DTO from '../dto/authentication-v1';
+import * as DatabaseConnectionCircuitBreaker from '../../guards/database-connection-circuit-breaker';
 
-@Controller({ path: '/authentication', version: ApiVersion.V1 })
+@Controller({ path: 'authentication', version: ApiVersion.V1 })
+@DatabaseConnectionCircuitBreaker.RequiresConnection(['credentials'])
 export class AuthenticationController {
-  constructor(protected readonly userAuthentication: UserAuthentication) {}
+  constructor(
+    protected readonly userAuthentication: UserAuthentication.Provider
+  ) {}
 
-  @Post('/')
+  @Post()
   async authenticate(
     @Body() payload: DTO.AuthenticateRequestPayload
   ): Promise<DTO.AuthenticateResponse> {

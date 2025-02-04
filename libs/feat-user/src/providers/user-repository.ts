@@ -1,14 +1,12 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { registerAs } from '@nestjs/config';
 import { createClient } from 'redis';
-import { get as env } from 'env-var';
 
 import * as assert from '#libs/util-misc/assert';
 import * as checks from '#libs/util-misc/type-check';
 
 import * as User from '../domain/user';
 
-export const configKey = 'user.credentials-repository.config';
+const configKey = 'user.credentials-repository.config';
 
 type Config = {
   /**
@@ -19,22 +17,10 @@ type Config = {
 
 type UserKeys = keyof User.Model;
 
-const getConfig = registerAs(
-  configKey,
-  (): Config =>
-    ({
-      redisClient: createClient({
-        url: env('APP__USER__USER_REPOSITORY__REDIS__CLIENT__URL')
-          .required()
-          .asUrlString(),
-      }),
-    } satisfies Config)
-);
-
 @Injectable()
-export class UserRepository {
+class UserRepository {
   constructor(
-    @Inject(getConfig.KEY)
+    @Inject(configKey)
     protected readonly config: Config
   ) {}
 
@@ -121,3 +107,6 @@ export class UserRepository {
     return user;
   }
 }
+
+export { UserRepository as Provider, Config, configKey };
+

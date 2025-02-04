@@ -13,7 +13,7 @@ import {
 } from './password-policy-rule';
 
 @Injectable()
-export class PasswordPolicy {
+class PasswordPolicy {
   protected readonly rules: Array<PasswordPolicyRule>;
 
   constructor(
@@ -21,7 +21,11 @@ export class PasswordPolicy {
     complexityRule: ComplexityRule,
     personalInformationRule: PersonalInformationRule
   ) {
-    this.rules = [minLengthRule, complexityRule, personalInformationRule];
+    this.rules = [
+      minLengthRule,
+      complexityRule,
+      personalInformationRule,
+    ] as const;
   }
 
   async validatePassword({
@@ -36,3 +40,5 @@ export class PasswordPolicy {
     }
   }
 }
+
+export { PasswordPolicy as Provider };

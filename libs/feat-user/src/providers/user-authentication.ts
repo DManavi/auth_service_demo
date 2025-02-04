@@ -9,19 +9,19 @@ import * as User from '../domain/user';
 import * as OnAuthenticationFailed from '../events/on-authentication-failed';
 import * as OnAuthenticationSucceeded from '../events/on-authentication-succeeded';
 
-import { UserRepository } from './user-repository';
-import { CredentialsRepository } from './credentials-repository';
+import * as UserRepository from './user-repository';
+import * as CredentialsRepository from './credentials-repository';
 
 @Injectable()
-export class UserAuthentication {
+class UserAuthentication {
   constructor(
     /* external dependencies */
     protected readonly eventEmitter: EventEmitter2,
     protected readonly clock: Clock,
 
     /* internal dependencies */
-    protected readonly userRepository: UserRepository,
-    protected readonly credentialsRepository: CredentialsRepository
+    protected readonly userRepository: UserRepository.Provider,
+    protected readonly credentialsRepository: CredentialsRepository.Provider
   ) {}
 
   protected async userExistenceCheck({
@@ -142,3 +142,5 @@ export class UserAuthentication {
     );
   }
 }
+
+export { UserAuthentication as Provider };
