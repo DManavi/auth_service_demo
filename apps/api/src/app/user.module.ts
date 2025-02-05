@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TerminusModule } from '@nestjs/terminus';
 import { createClient } from 'redis';
 import { get as env } from 'env-var';
+import { APP_GUARD } from '@nestjs/core';
 
 import { SharedModule } from './shared.module';
 
@@ -21,7 +22,6 @@ import * as PasswordPolicy from '#libs/feat-user/providers/password-policy';
 import * as PasswordPolicyRule from '#libs/feat-user/providers/password-policy-rules';
 import * as UserManagement from '#libs/feat-user/providers/user-management';
 import * as UserAuthentication from '#libs/feat-user/providers/user-authentication';
-import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [TerminusModule, SharedModule],
