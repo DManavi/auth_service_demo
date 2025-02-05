@@ -5,6 +5,9 @@ import { get as env } from 'env-var';
 
 import { SharedModule } from './shared.module';
 
+/* Guards */
+import * as DatabaseConnectionCircuitBreaker from '#libs/feat-user/guards/database-connection-circuit-breaker';
+
 /* Controllers */
 import { HealthController } from '#libs/feat-user/api/controllers/health';
 import { UsersController } from '#libs/feat-user/api/controllers/users-v1';
@@ -18,6 +21,7 @@ import * as PasswordPolicy from '#libs/feat-user/providers/password-policy';
 import * as PasswordPolicyRule from '#libs/feat-user/providers/password-policy-rules';
 import * as UserManagement from '#libs/feat-user/providers/user-management';
 import * as UserAuthentication from '#libs/feat-user/providers/user-authentication';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [TerminusModule, SharedModule],
@@ -57,6 +61,12 @@ import * as UserAuthentication from '#libs/feat-user/providers/user-authenticati
           redisClient,
         };
       },
+    },
+
+    // guards
+    {
+      provide: APP_GUARD,
+      useClass: DatabaseConnectionCircuitBreaker.Guard,
     },
 
     // database

@@ -7,7 +7,10 @@ import { UserModule } from './user.module';
 @Module({
   imports: [
     /* internal modules */
-    EventEmitterModule.forRoot({}),
+    EventEmitterModule.forRoot({
+      global: true,
+      wildcard: true,
+    }),
 
     /* shared modules */
     SharedModule,
