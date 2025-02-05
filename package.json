@@ -8,7 +8,8 @@
     "rm": "nx g @nx/workspace:remove",
     "mv": "nx g @nx/workspace:move",
     "graph": "nx graph",
-    "docs": "compodoc -p tsconfig.json -s"
+    "docs": "compodoc -p tsconfig.json -s",
+    "api:dev": "nx serve apps/api --skip-nx-cache"
   },
   "devDependencies": {
     "@compodoc/compodoc": "^1.1.26",
