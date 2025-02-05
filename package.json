@@ -6,9 +6,12 @@
     "nx": "nx",
     "g": "nx g",
     "rm": "nx g @nx/workspace:remove",
-    "mv": "nx g @nx/workspace:move"
+    "mv": "nx g @nx/workspace:move",
+    "graph": "nx graph",
+    "docs": "compodoc -p tsconfig.json -s"
   },
   "devDependencies": {
+    "@compodoc/compodoc": "^1.1.26",
     "@eslint/js": "^9.8.0",
     "@nestjs/schematics": "^10.0.1",
     "@nestjs/testing": "^10.0.2",
