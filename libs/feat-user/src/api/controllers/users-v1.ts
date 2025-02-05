@@ -1,4 +1,5 @@
 import { Body, Controller, HttpCode, Post } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 
 import * as UserAuthentication from '../../providers/user-authentication';
 import * as UserManagement from '../../providers/user-management';
@@ -13,6 +14,7 @@ export class UsersController {
     protected readonly userAuthentication: UserAuthentication.Provider
   ) {}
 
+  @Throttle({ registration: {} })
   @Post()
   @DatabaseConnectionCircuitBreaker.RequiresConnection(['users'])
   async create(
@@ -32,6 +34,7 @@ export class UsersController {
     };
   }
 
+  @Throttle({ authentication: {} })
   @Post('authenticate')
   @HttpCode(200)
   @DatabaseConnectionCircuitBreaker.RequiresConnection(['credentials'])

@@ -22,6 +22,7 @@ import * as PasswordPolicy from '#libs/feat-user/providers/password-policy';
 import * as PasswordPolicyRule from '#libs/feat-user/providers/password-policy-rules';
 import * as UserManagement from '#libs/feat-user/providers/user-management';
 import * as UserAuthentication from '#libs/feat-user/providers/user-authentication';
+import { ThrottlerGuard } from '@nestjs/throttler';
 
 @Module({
   imports: [TerminusModule, SharedModule],
@@ -64,6 +65,10 @@ import * as UserAuthentication from '#libs/feat-user/providers/user-authenticati
     },
 
     // guards
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
     {
       provide: APP_GUARD,
       useClass: DatabaseConnectionCircuitBreaker.Guard,

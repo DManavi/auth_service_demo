@@ -2,13 +2,16 @@ import 'reflect-metadata';
 
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { get as env } from 'env-var';
 import { defaultTo } from 'lodash';
 
 import { AppModule } from './app';
 
 (async () => {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  app.enable('trust proxy');
 
   app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
 
