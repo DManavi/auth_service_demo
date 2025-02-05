@@ -4,6 +4,7 @@
   "sourceRoot": "libs/feat-user/src",
   "projectType": "library",
   "tags": [],
+  "implicitDependencies": ["libs/util-api", "libs/util-misc"],
   "// targets": "to see all targets run: nx show project libs/feat-user --web",
   "targets": {}
 }
