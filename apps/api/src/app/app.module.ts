@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ThrottlerModule } from '@nestjs/throttler';
 
+import * as EventsLogger from './events/logger';
+
 import { SharedModule } from './shared.module';
 import { UserModule } from './user.module';
 
@@ -41,5 +43,7 @@ import { UserModule } from './user.module';
     /* feature modules */
     UserModule,
   ],
+
+  providers: [EventsLogger.Provider],
 })
 export class AppModule {}

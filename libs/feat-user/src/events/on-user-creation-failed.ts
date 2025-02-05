@@ -4,7 +4,7 @@ import { BaseEvent } from './base';
 
 const name = 'users.on-user-creation-failed';
 
-class OnUserCreationFailed<T extends Error> extends BaseEvent {
+class OnUserCreationFailed<T extends Error = Error> extends BaseEvent {
   /**
    * The user that it was attempted to create.
    */
