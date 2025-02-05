@@ -1,4 +1,4 @@
-export class Clock {
+class Clock {
   currentDate(): Date {
     return new Date();
   }
@@ -10,3 +10,5 @@ export class Clock {
     return Date.now().valueOf();
   }
 }
+
+export { Clock as Provider };

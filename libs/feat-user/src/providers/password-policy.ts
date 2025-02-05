@@ -4,28 +4,18 @@ import * as User from '../domain/user';
 
 import {
   /* Implementations */
-  MinLengthRule,
-  ComplexityRule,
   PersonalInformationRule,
 
   /* Abstraction */
   PasswordPolicyRule,
-} from './password-policy-rule';
+} from './password-policy-rules';
 
 @Injectable()
 class PasswordPolicy {
   protected readonly rules: Array<PasswordPolicyRule>;
 
-  constructor(
-    minLengthRule: MinLengthRule,
-    complexityRule: ComplexityRule,
-    personalInformationRule: PersonalInformationRule
-  ) {
-    this.rules = [
-      minLengthRule,
-      complexityRule,
-      personalInformationRule,
-    ] as const;
+  constructor(personalInformationRule: PersonalInformationRule) {
+    this.rules = [personalInformationRule] as const;
   }
 
   async validatePassword({

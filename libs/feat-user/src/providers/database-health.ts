@@ -5,7 +5,7 @@ import { HealthIndicatorResult } from '@nestjs/terminus';
 import * as assert from '#libs/util-misc/assert';
 
 import * as CredentialsRepository from './credentials-repository';
-import * as UserRepository from './user-repository';
+import * as UserRepository from './users-repository';
 
 type ConnectionName = 'credentials' | 'users';
 
@@ -27,7 +27,7 @@ type ConnectionStatus = {
 };
 
 @Injectable()
-class DatabaseHealthCheck {
+class DatabaseHealth {
   protected readonly databaseConnections: Record<
     ConnectionName,
     ReturnType<typeof createClient>
@@ -73,7 +73,7 @@ class DatabaseHealthCheck {
     return this.checkRedisConnection({ redisClient });
   }
 
-  async getDatabaseConnectionHealthIndicator({
+  async getConnectionHealthIndicator({
     connectionName,
   }: {
     connectionName: ConnectionName;
@@ -94,7 +94,7 @@ class DatabaseHealthCheck {
 }
 
 export {
-  DatabaseHealthCheck as Provider,
+  DatabaseHealth as Provider,
   ConnectionName as DatabaseConnectionName,
   ConnectionStatus as DatabaseStatus,
 };

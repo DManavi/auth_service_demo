@@ -1,13 +1,13 @@
 import { Controller, Get, VERSION_NEUTRAL } from '@nestjs/common';
 import { HealthCheck, HealthCheckService } from '@nestjs/terminus';
 
-import * as DatabaseHealthCheck from '../../providers/database-health-check';
+import * as DatabaseHealth from '../../providers/database-health';
 
-@Controller({ path: '_health', version: VERSION_NEUTRAL })
+@Controller({ path: 'health', version: VERSION_NEUTRAL })
 export class HealthController {
   constructor(
     protected readonly health: HealthCheckService,
-    protected readonly databaseHealthCheck: DatabaseHealthCheck.Provider
+    protected readonly databaseHealth: DatabaseHealth.Provider
   ) {}
 
   @Get()
@@ -15,11 +15,11 @@ export class HealthController {
   async healthCheck() {
     return this.health.check([
       () =>
-        this.databaseHealthCheck.getDatabaseConnectionHealthIndicator({
+        this.databaseHealth.getConnectionHealthIndicator({
           connectionName: 'users',
         }),
       () =>
-        this.databaseHealthCheck.getDatabaseConnectionHealthIndicator({
+        this.databaseHealth.getConnectionHealthIndicator({
           connectionName: 'credentials',
         }),
     ]);

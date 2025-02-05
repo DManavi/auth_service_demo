@@ -15,9 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "#libs/feat-authentication/*": ["libs/feat-users/src/*"],
-      "#libs/util-misc/*": ["libs/util-misc/src/*"],
-      "#libs/util-api/*": ["libs/util-api/src/*"]
+      "#libs/feat-user/*": ["libs/feat-user/src/*"],
+      "#libs/util-api/*": ["libs/util-api/src/*"],
+      "#libs/util-misc/*": ["libs/util-misc/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

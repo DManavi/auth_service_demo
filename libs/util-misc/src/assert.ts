@@ -13,7 +13,7 @@ import * as typeChecks from './type-check';
  */
 function createOrThrowError(errorOrMessage: string | Error) {
   if (typeof errorOrMessage === 'string') {
-    return new Error(errorOrMessage);
+    throw new Error(errorOrMessage);
   }
 
   throw errorOrMessage;

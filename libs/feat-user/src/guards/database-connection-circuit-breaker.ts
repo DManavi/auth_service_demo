@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { defaultTo, uniq } from 'lodash';
 
-import * as DatabaseHealthCheck from '../providers/database-health-check';
+import * as DatabaseHealthCheck from '../providers/database-health';
 
 const RequiresDatabaseConnection =
   Reflector.createDecorator<

@@ -16,7 +16,8 @@
       "exclude": [
         "apps/api-e2e/**/*",
         "services/user-registration-e2e/**/*",
-        "services/user-authentication-e2e/**/*"
+        "services/user-authentication-e2e/**/*",
+        "apps/api-e2e/**/*"
       ]
     },
     {

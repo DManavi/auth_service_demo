@@ -18,7 +18,7 @@ type Config = {
 type UserKeys = keyof User.Model;
 
 @Injectable()
-class UserRepository {
+class UsersRepository {
   constructor(
     @Inject(configKey)
     protected readonly config: Config
@@ -108,5 +108,4 @@ class UserRepository {
   }
 }
 
-export { UserRepository as Provider, Config, configKey };
-
+export { UsersRepository as Provider, Config, configKey };

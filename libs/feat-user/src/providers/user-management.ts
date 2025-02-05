@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 
-import { Clock } from '#libs/util-misc/clock';
+import * as Clock from '#libs/util-misc/clock';
 import * as assert from '#libs/util-misc/assert';
 
 import * as User from '../domain/user';
@@ -17,7 +17,7 @@ import * as OnUserCreationFailedEvent from '../events/on-user-creation-failed';
 import * as OnUserCreatedEvent from '../events/on-user-created';
 import * as OnUserStatusEvent from '../events/on-user-status-changed';
 
-import * as UserRepository from './user-repository';
+import * as UserRepository from './users-repository';
 import * as PasswordPolicy from './password-policy';
 import * as CredentialsRepository from './credentials-repository';
 
@@ -26,7 +26,7 @@ class UserManagement {
   constructor(
     /* external dependencies */
     protected readonly eventEmitter: EventEmitter2,
-    protected readonly clock: Clock,
+    protected readonly clock: Clock.Provider,
 
     /* internal dependencies */
     protected readonly userRepository: UserRepository.Provider,

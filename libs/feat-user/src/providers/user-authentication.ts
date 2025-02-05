@@ -3,13 +3,13 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 
 import * as typeChecks from '#libs/util-misc/type-check';
 import * as assert from '#libs/util-misc/assert';
-import { Clock } from '#libs/util-misc/clock';
+import * as Clock from '#libs/util-misc/clock';
 
 import * as User from '../domain/user';
 import * as OnAuthenticationFailed from '../events/on-authentication-failed';
 import * as OnAuthenticationSucceeded from '../events/on-authentication-succeeded';
 
-import * as UserRepository from './user-repository';
+import * as UserRepository from './users-repository';
 import * as CredentialsRepository from './credentials-repository';
 
 @Injectable()
@@ -17,7 +17,7 @@ class UserAuthentication {
   constructor(
     /* external dependencies */
     protected readonly eventEmitter: EventEmitter2,
-    protected readonly clock: Clock,
+    protected readonly clock: Clock.Provider,
 
     /* internal dependencies */
     protected readonly userRepository: UserRepository.Provider,

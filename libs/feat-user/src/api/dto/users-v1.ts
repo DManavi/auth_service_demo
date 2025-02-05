@@ -1,4 +1,10 @@
-import { IsDefined, IsString, MaxLength, MinLength } from 'class-validator';
+import {
+  IsDefined,
+  IsString,
+  MaxLength,
+  MinLength,
+  Matches,
+} from 'class-validator';
 import { instanceToPlain, plainToInstance } from 'class-transformer';
 
 import { SuccessfulResponse } from '#libs/util-api/response';
@@ -20,8 +26,17 @@ export class CreateRequestPayload {
    */
   @IsDefined()
   @IsString()
-  @MinLength(1)
-  @MaxLength(255) // DM: Password length is limited to 255 characters.
+  @MinLength(8)
+  @MaxLength(255)
+  @Matches(/[A-Z]/, {
+    message: 'Password must contain at least one uppercase letter.',
+  })
+  @Matches(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/, {
+    message: 'Password must contain at least one special character.',
+  })
+  @Matches(/[0-9]/, {
+    message: 'Password must contain at least one digit.',
+  })
   password: string;
 }
 
@@ -53,3 +68,23 @@ export class User implements UserDomain.Model {
 }
 
 export type CreateSuccessfulResponse = SuccessfulResponse<User>;
+
+export class AuthenticateRequestPayload {
+  /**
+   * The username of the user.
+   */
+  @IsDefined()
+  @IsString()
+  @MinLength(1)
+  @MaxLength(63) // DM: Username length is limited to 63 characters.
+  username: string;
+
+  /**
+   * The password of the user.
+   */
+  @IsDefined()
+  @IsString()
+  password: string;
+}
+
+export type AuthenticateResponse = SuccessfulResponse;
